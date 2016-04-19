@@ -5,6 +5,9 @@ package com.cwang.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ConnectionFactory {
 	private static Connection conn = null;
@@ -12,6 +15,13 @@ public class ConnectionFactory {
 	private static String DBURL = "jdbc:mysql://localhost:3306/test"; 
 	private static String DBUSER = "root";
 	private static String DBPASS = "root";  
+	
+	/**
+	 * private constructor
+	 */
+	private ConnectionFactory(){
+		
+	}
 	
 	/**
 	 * 获取数据库连接
@@ -29,6 +39,42 @@ public class ConnectionFactory {
 		
 		return conn;
 	}
+	
+	/**
+	 * 释放资源
+	 * @param rs		结果集
+	 * @param st		Statement
+	 * @param conn		连接
+	 */
+	public static void free(ResultSet rs , Statement st, Connection conn){
+		try {
+            if (rs != null) {
+                rs.close(); // 关闭结果集
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (st != null) {
+                    st.close(); // 关闭Statement
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (conn != null) {
+                        conn.close(); // 关闭连接
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+	}
+	
+	/**
+	 * getters and setters
+	 */
 
 	public static String getDBDRIVER() {
 		return DBDRIVER;
