@@ -46,7 +46,7 @@ public class ConnectionFactory {
 	 * @param st		Statement
 	 * @param conn		连接
 	 */
-	public static void free(ResultSet rs , Statement st, Connection conn){
+	public static void free(ResultSet rs , Statement st){
 		try {
             if (rs != null) {
                 rs.close(); // 关闭结果集
@@ -64,6 +64,7 @@ public class ConnectionFactory {
                 try {
                     if (conn != null) {
                         conn.close(); // 关闭连接
+                        conn = null;
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
