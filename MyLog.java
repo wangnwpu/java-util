@@ -11,9 +11,9 @@ import java.util.Date;
 
 public class MyLog {
 	
-	private static String logPath;	//目录
+	private static String logPath = "LogFile";	//目录
 	
-	private static String suffix;	//扩展名
+	private static String suffix = ".log";	//扩展名
 	
 	/**
 	 * 记录日志，以文件的形式存储，文件名为日期
